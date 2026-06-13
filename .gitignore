@@ -22,6 +22,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+practice-4-jdbc/
 
 ### NetBeans ###
 /nbproject/private/

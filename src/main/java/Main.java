@@ -13,7 +13,8 @@ public class Main {
 
         FakeReceiver receiver = new FakeReceiver(receiverToDecryptor, encoder);
         Decryptor decryptor = new Decryptor(receiverToDecryptor, decryptorToProcessor, decoder);
-        Processor processor = new Processor(decryptorToProcessor, processorToEncryptor);
+        ProductDb db = new SqlLiteProductDb("jdbc:sqlite:warehouse.db");
+        Processor processor = new Processor(decryptorToProcessor, processorToEncryptor, db);
         Encryptor encryptor = new Encryptor(processorToEncryptor, encryptorToSender, encoder);
         FakeSender sender = new FakeSender(encryptorToSender);
 

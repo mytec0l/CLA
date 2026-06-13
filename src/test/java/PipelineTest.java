@@ -16,7 +16,8 @@ class PipelineTest {
 
 
         Decryptor decryptor = new Decryptor(buf1, buf2, decoder);
-        Processor processor = new Processor(buf2, buf3);
+        ProductDb db = new SqlLiteProductDb("jdbc:sqlite::memory:");
+        Processor processor = new Processor(buf2, buf3, db);
         Encryptor encryptor = new Encryptor(buf3, buf4, encoder);
         FakeSender sender = new FakeSender(buf4);
 
