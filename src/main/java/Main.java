@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         MessageCipher cipher = new MessageCipher("mySuperKey123456".getBytes());
@@ -17,6 +19,15 @@ public class Main {
         Processor processor = new Processor(decryptorToProcessor, processorToEncryptor, db);
         Encryptor encryptor = new Encryptor(processorToEncryptor, encryptorToSender, encoder);
         FakeSender sender = new FakeSender(encryptorToSender);
+
+        StoreHttpServer httpServer = null;
+        try {
+            httpServer = new StoreHttpServer(8080, db);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        httpServer.start();
+        System.out.println("HTTP server 8080");
 
         Thread tReceiver  = new Thread(receiver);
         Thread tDecryptor = new Thread(decryptor);
